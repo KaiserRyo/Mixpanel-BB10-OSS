@@ -1,0 +1,1 @@
+include (../Mixpanel.pro)
