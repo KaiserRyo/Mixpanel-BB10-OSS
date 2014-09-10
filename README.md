@@ -19,7 +19,7 @@ Features
 
 License
 --------------------
-BSD 3-Clause / new / simplified (see LICENSE)
+[BSD 3-Clause / new / simplified](http://opensource.org/licenses/BSD-3-Clause) (see [LICENSE](LICENSE))
 
 
 Requirements
