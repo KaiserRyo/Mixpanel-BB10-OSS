@@ -46,7 +46,7 @@ public:
     QByteArray stdTrackEvent(const QString& name, const QVariantMap& properties) const;
 
 private:
-    bool eventHasErrors(const QString& eventName);
+    bool eventHasErrors(const QString& eventName, const QVariantMap& properties);
 
 signals:
 
@@ -58,7 +58,7 @@ signals:
     /// This signal is emitted when in invalid event message has
     /// failed to be recorded due an error.
     ///
-    void trackError(MixpanelEvent::TrackEventError errorId, const QString eventName);
+    void trackError(MixpanelEvent::TrackEventError errorId, const QString eventName, const QVariantMap properties);
 
 private:
     MixpanelEventPrivate * const d;

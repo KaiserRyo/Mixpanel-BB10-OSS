@@ -83,7 +83,7 @@ MixpanelPersistentIdentity& MixpanelEvent::persistentIdentity()
 
 void MixpanelEvent::track(const QString& name, const QVariantMap& properties)
 {
-    if (eventHasErrors(name))
+    if (eventHasErrors(name, properties))
     {
         qWarning() << "Event invalid -> Analytic message not recorded";
         return;
@@ -98,7 +98,7 @@ void MixpanelEvent::track(const QString& name, const QVariantMap& properties)
     if (!eventData.isEmpty())
         emit recordEventMessage(eventData);
     else
-        emit trackError(InvalidJson, name);
+        emit trackError(InvalidJson, name, properties);
 }
 
 /// Returns whether the event has errors
@@ -106,23 +106,23 @@ void MixpanelEvent::track(const QString& name, const QVariantMap& properties)
 /// \return True if there is any errors
 ///
 
-bool MixpanelEvent::eventHasErrors(const QString& eventName)
+bool MixpanelEvent::eventHasErrors(const QString& eventName, const QVariantMap& properties)
 {
     if (d->persistentIdentity.token().isEmpty())
     {
-        emit trackError(InvalidToken, eventName);
+        emit trackError(InvalidToken, eventName, properties);
         return true;
     }
 
     if (eventName.isEmpty())
     {
-        emit trackError(InvalidName, eventName);
+        emit trackError(InvalidName, eventName, properties);
         return true;
     }
 
     if (d->persistentIdentity.token().isEmpty())
     {
-        emit trackError(InvalidIdentity, eventName);
+        emit trackError(InvalidIdentity, eventName, properties);
         return true;
     }
 
