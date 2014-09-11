@@ -54,8 +54,8 @@ public:
 
 private slots:
     void mixpanelMessagePosted(const MixpanelMessageQueue::MixpanelPostMessageError errorCode, const QVariantMap analyticMessage);
-    void mixpanelTrackError(MixpanelEvent::TrackEventError error, const QString eventName);
-    void mixpanelEngageProfileError(const MixpanelPeople::EngageProfileError errorId, const QString action, const QVariantMap properties);
+    void mixpanelTrackError(MixpanelEvent::TrackEventError errorCode, const QString eventName, const QVariantMap eventProperties);
+    void mixpanelEngageProfileError(const MixpanelPeople::EngageProfileError errorCode, const QString action, const QVariantMap properties);
     void onSystemLanguageChanged();
 private:
     QTranslator* m_pTranslator;

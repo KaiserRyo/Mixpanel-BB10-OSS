@@ -59,7 +59,7 @@ ApplicationUI::ApplicationUI() :
     config.setMessagesToFlush(10);
     config.setThumbnailFlush(true);
 
-    Mixpanel* m_mixpanel = new Mixpanel(this, config);
+    m_mixpanel = new Mixpanel(this, config);
 
     m_mixpanel->setToken(token);
     m_mixpanel->identify("");
@@ -79,7 +79,7 @@ ApplicationUI::ApplicationUI() :
     connectResult = connect(&m_mixpanel->messageQueue(), SIGNAL(mixpanelMessagePosted(MixpanelMessageQueue::MixpanelPostMessageError,QVariantMap)), this, SLOT(mixpanelMessagePosted(MixpanelMessageQueue::MixpanelPostMessageError,QVariantMap)));
     Q_ASSERT(connectResult);
 
-    connectResult = connect(&m_mixpanel->event(), SIGNAL(trackError(MixpanelEvent::TrackEventError,QString)), this, SLOT(mixpanelTrackError(MixpanelEvent::TrackEventError,QString)));
+    connectResult = connect(&m_mixpanel->event(), SIGNAL(trackError(MixpanelEvent::TrackEventError,QString,QVariantMap)), this, SLOT(mixpanelTrackError(MixpanelEvent::TrackEventError,QString,QVariantMap)));
     Q_ASSERT(connectResult);
 
     connectResult = connect(&m_mixpanel->people(), SIGNAL(engageProfileError(MixpanelPeople::EngageProfileError,QString,QVariantMap)), this, SLOT(mixpanelEngageProfileError(MixpanelPeople::EngageProfileError,QString,QVariantMap)));
@@ -109,7 +109,6 @@ void ApplicationUI::sendProfileUpdate()
     properties.insert("$last_name", "Messi");
     properties.insert("$email", "leomessi@gmail.com");
     m_mixpanel->setProfileProperties(properties);
-    //qDebug() << "Sending profile update << " << properties;
 }
 
 void ApplicationUI::sendCoinsIncrement()
@@ -161,13 +160,45 @@ void ApplicationUI::mixpanelMessagePosted(const MixpanelMessageQueue::MixpanelPo
     qDebug() << errorCode <<  analyticMessage;
 }
 
-void ApplicationUI::mixpanelTrackError(MixpanelEvent::TrackEventError error, const QString eventName)
+void ApplicationUI::mixpanelTrackError(MixpanelEvent::TrackEventError errorCode, const QString eventName, const QVariantMap eventProperties)
 {
-    qDebug() << error <<  eventName;
+    switch (errorCode) {
+        case MixpanelEvent::InvalidToken:
+            qWarning() << "Event failed due to invalid token";
+            break;
+        case  MixpanelEvent::InvalidIdentity:
+            qWarning() << "Event failed due to invalid identity";
+            break;
+        case  MixpanelEvent::InvalidJson:
+            qWarning() << "Event failed due to invalid JSON content";
+            break;
+        case  MixpanelEvent::InvalidName:
+            qWarning() << "Event failed due to an invalid event name";
+            break;
+        default:
+            break;
+    }
+    qWarning() << "Mixpanel event " << eventName << " " <<  eventProperties;
 }
 
-void ApplicationUI::mixpanelEngageProfileError(const MixpanelPeople::EngageProfileError errorId, const QString action, const QVariantMap properties)
+void ApplicationUI::mixpanelEngageProfileError(const MixpanelPeople::EngageProfileError errorCode, const QString action, const QVariantMap properties)
 {
-    qDebug() << errorId <<  action << properties;
+    switch (errorCode) {
+        case MixpanelPeople::InvalidToken:
+            qWarning() << "Profile update failed due to invalid token";
+            break;
+        case  MixpanelPeople::InvalidIdentity:
+            qWarning() << "Profile update failed due to invalid identity";
+            break;
+        case  MixpanelPeople::InvalidJson:
+            qWarning() << "Profile update failed due to invalid JSON content";
+            break;
+        case  MixpanelPeople::InvalidIncrement:
+            qWarning() << "Profile update failed due to invalid increment data";
+            break;
+        default:
+            break;
+    }
+    qWarning() << "Action: " << action << "   Properties: " << properties;
 }
 
