@@ -13,6 +13,7 @@ Features
   +  Set properties
   +  Set once properties
   +  Increment properties
+  +  Delete user profile
 + Use super properties
 + Default profile data (app version, OS version, Model...)
 + Different flush configurations
