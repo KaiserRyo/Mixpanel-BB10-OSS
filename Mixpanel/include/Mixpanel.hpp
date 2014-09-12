@@ -92,7 +92,7 @@ public slots:
     void setOnceProfileProperties(const QVariantMap& properties);
     void setOnceProfileProperty(const QString& propertyName, const QVariant& value);
 
-    void setCustomAction(const QString& actionName, const QVariantMap& actionProperties);
+    void setCustomAction(const QVariantMap& actionProperties);
 
     void incrementProfileProperty(const QString& property, const double& value);
 

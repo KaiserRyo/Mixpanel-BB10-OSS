@@ -154,13 +154,17 @@ void MixpanelPeople::setOnce(const QString& propertyName, const QVariant& value)
 
 /// Records a analytic profile update message using an action given
 ///
-/// \param actionName The profile operation or action ($set_once, $append...)
-/// \param actionProperties The properties inside the action
+/// \param actionProperties A QVariantMap containtin an action and its properties
 ///
 
-void MixpanelPeople::setCustomAction(const QString& actionName, const QVariantMap& actionProperies)
+void MixpanelPeople::setCustomAction(const QVariantMap& actionProperies)
 {
-    engageProfileMessage(actionName, actionProperies);
+    QByteArray peopleMessageData = stdPeopleMessage("", actionProperies);
+
+    if (!peopleMessageData.isEmpty())
+       emit recordPeopleMessage(peopleMessageData);
+    else
+       emit engageProfileError(InvalidJson, "", actionProperies);
 }
 
 ///
@@ -252,7 +256,8 @@ bool MixpanelPeople::engageHasErrors(const QString& action, const QVariantMap& p
 ///
 /// \param name The action to be perform in Mixpanel
 /// \param properties A QVariantMap containing the key value pairs of the properties to include in this profile update.
-////
+///
+/// \note In case that action is empty it is considered that the action already inside the properties
 
 QByteArray MixpanelPeople::stdPeopleMessage(const QString& action, const QVariantMap& properties)
 {
@@ -260,7 +265,10 @@ QByteArray MixpanelPeople::stdPeopleMessage(const QString& action, const QVarian
     JsonDataAccess dataAccess;
     QByteArray peopleMessageData;
 
-    dataMap.insert(action, properties);
+    if (!action.isEmpty())
+        dataMap.insert(action, properties);
+    else
+        dataMap.unite(properties);
 
     dataMap.insert("$token", d->persistentIdentity.token());
     dataMap.insert("$distinct_id", d->persistentIdentity.peopleDistinctId());

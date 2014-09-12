@@ -59,7 +59,7 @@ public:
     void setOnce(const QVariantMap& properties);
     void setOnce(const QString& propertyName, const QVariant& value);
 
-    void setCustomAction(const QString& actionName, const QVariantMap& actionProperies);
+    void setCustomAction(const QVariantMap& actionProperies);
 
     void increment(const QString& propertyName, double value);
 
