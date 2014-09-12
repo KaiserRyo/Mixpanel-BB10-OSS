@@ -210,6 +210,11 @@ void Mixpanel::incrementProfileProperty(const QString& property, const double& v
     d->mixpanelPeople->increment(property, value);
 }
 
+/// Permanently deletes the identified user's record from People Analytics.
+///
+/// \note Calling deleteUser deletes an entire record completely. Any future calls
+///  to People Analytics using the same distinct id will create and store new values.
+
 void Mixpanel::deleteUser()
 {
     d->mixpanelPeople->deleteUser();

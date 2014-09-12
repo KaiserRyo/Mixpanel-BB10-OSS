@@ -175,6 +175,8 @@ void MixpanelPeople::increment(const QString& propertyName, double value)
     engageProfileMessage("$add", properties);
 }
 
+/// Records a delete user mixpanel analytics message
+
 void MixpanelPeople::deleteUser()
 {
     engageProfileMessage("$delete", QVariantMap());
