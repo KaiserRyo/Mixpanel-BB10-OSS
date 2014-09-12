@@ -104,6 +104,8 @@ public slots:
 
     void flush();
 
+    static QString convertToMixpanelDateFormat(const QDateTime& dateTime);
+
 private:
     MixpanelPrivate * const d;
 };

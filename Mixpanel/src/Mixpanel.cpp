@@ -12,6 +12,7 @@
 #include "../include/MixpanelMessageQueue.hpp"
 
 #include "qdebug.h"
+#include <QDateTime>
 
 class MixpanelPrivate {
 public:
@@ -202,6 +203,16 @@ void Mixpanel::incrementProfileProperty(const QString& property, const double& v
 void Mixpanel::flush()
 {
     d->messageQueue->postToServer();
+}
+
+/// Returns a QString containing the date given using the Mixpanel format
+///
+/// \param dateTime The QDateTime object to convert
+///
+
+QString Mixpanel::convertToMixpanelDateFormat(const QDateTime& dateTime)
+{
+    return dateTime.toString("yyyy-MM-ddThh:mm:ss");
 }
 
 /// Returns the reference to MixpanelPeople
