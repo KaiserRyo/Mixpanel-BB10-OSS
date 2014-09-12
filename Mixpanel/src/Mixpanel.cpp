@@ -153,6 +153,17 @@ void Mixpanel::setOnceProfileProperty(const QString& propertyName, const QVarian
     d->mixpanelPeople->setOnce(propertyName, value);
 }
 
+/// Sets a profile update containing the action given and its properties
+///
+/// \actionName The name of the action i.e. $append
+/// \actionProperties The properties that the action will contain
+///
+
+void Mixpanel::setCustomAction(const QString& actionName, const QVariantMap& actionProperties)
+{
+    d->mixpanelPeople->setCustomAction(actionName, actionProperties);
+}
+
 /// Registers super properites in the persistent identity
 ///
 /// \param superProperties as QVariantMap

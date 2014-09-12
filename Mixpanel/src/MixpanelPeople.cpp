@@ -151,6 +151,18 @@ void MixpanelPeople::setOnce(const QString& propertyName, const QVariant& value)
     setOnce(dataMap);
 }
 
+
+/// Records a analytic profile update message using an action given
+///
+/// \param actionName The profile operation or action ($set_once, $append...)
+/// \param actionProperties The properties inside the action
+///
+
+void MixpanelPeople::setCustomAction(const QString& actionName, const QVariantMap& actionProperies)
+{
+    engageProfileMessage(actionName, actionProperies);
+}
+
 ///
 /// Add the given amount to an existing property on the identified user. If the user does not already
 /// have the associated property, the amount will be added to zero. To reduce a property,
@@ -223,6 +235,12 @@ bool MixpanelPeople::engageHasErrors(const QString& action, const QVariantMap& p
     if (d->persistentIdentity.token().isEmpty())
     {
         emit engageProfileError(InvalidIdentity, action, properties);
+        return true;
+    }
+
+    if (action.isEmpty())
+    {
+        emit engageProfileError(IvalidAction, action, properties);
         return true;
     }
 
