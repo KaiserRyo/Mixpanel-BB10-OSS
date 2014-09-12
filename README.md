@@ -11,6 +11,7 @@ Features
 + Track events
 + Profile updates
   +  Set properties
+  +  Set once properties
   +  Increment properties
 + Use super properties
 + Default profile data (app version, OS version, Model...)
@@ -113,11 +114,11 @@ Track event in a QML Button:
 	Button {
 		text: "Track Level complete"
 		onClicked: {
-		    var eventPorperties = {
+		    var eventProperties = {
 		        "Level Number" : 9,
 		        "Coins" : 1250
 		    }
-		    mixpanel.trackEvent("Level Complete", eventPorperties);                    
+		    mixpanel.trackEvent("Level Complete", eventProperties);                    
 		}
 	}
 

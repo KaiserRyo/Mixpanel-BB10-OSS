@@ -87,7 +87,10 @@ public slots:
     void identify(const QString& distinctId);
 
     void setProfileProperties(const QVariantMap& properties);
-    void setProfileProperty(const QString& property, QVariant object);
+    void setProfileProperty(const QString& propertyName, const QVariant& value);
+
+    void setOnceProfileProperties(const QVariantMap& properties);
+    void setOnceProfileProperty(const QString& propertyName, const QVariant& value);
 
     void incrementProfileProperty(const QString& property, const double& value);
 
@@ -100,6 +103,8 @@ public slots:
     void trackEvent(const QString& eventName, const QVariantMap& properties = QVariantMap());
 
     void flush();
+
+    static QString convertToMixpanelDateFormat(const QDateTime& dateTime);
 
 private:
     MixpanelPrivate * const d;

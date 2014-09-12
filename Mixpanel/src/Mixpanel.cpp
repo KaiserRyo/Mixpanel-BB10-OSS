@@ -12,6 +12,7 @@
 #include "../include/MixpanelMessageQueue.hpp"
 
 #include "qdebug.h"
+#include <QDateTime>
 
 class MixpanelPrivate {
 public:
@@ -109,9 +110,9 @@ void Mixpanel::identify(const QString& distinctId)
     d->mixpanelPeople->identify(distinctId);
 }
 
-/// Sets the Distinct id to be used in the Mixpanel event requests.
+/// Sets the properties in the profile.
 ///
-/// \param Events distinct id
+/// \param properties The properties to be set
 ///
 
 void Mixpanel::setProfileProperties(const QVariantMap& properties)
@@ -119,15 +120,37 @@ void Mixpanel::setProfileProperties(const QVariantMap& properties)
     d->mixpanelPeople->set(properties);
 }
 
-/// Sets the new property in the profile.
+/// Sets the property in the profile.
 ///
-/// \param property name as a QString
-/// \param object property as a QVariant
+/// \param propertyName The name of the property
+/// \param value The value of the property in a QVariant object
 ///
 
-void Mixpanel::setProfileProperty(const QString& property, QVariant object)
+void Mixpanel::setProfileProperty(const QString& propertyName, const QVariant& value)
 {
-    d->mixpanelPeople->set(property, object);
+    d->mixpanelPeople->set(propertyName, value);
+}
+
+/// Sets once the properties in the profile.
+///
+/// \param properties The properties to be set
+///
+
+void Mixpanel::setOnceProfileProperties(const QVariantMap& properties)
+{
+    d->mixpanelPeople->setOnce(properties);
+}
+
+/// Sets once the property in the profile.
+///
+/// \param propertyName The name of the property
+/// \param value The value of the property in a QVariant object
+///
+
+
+void Mixpanel::setOnceProfileProperty(const QString& propertyName, const QVariant& value)
+{
+    d->mixpanelPeople->setOnce(propertyName, value);
 }
 
 /// Registers super properites in the persistent identity
@@ -192,6 +215,16 @@ void Mixpanel::incrementProfileProperty(const QString& property, const double& v
 void Mixpanel::flush()
 {
     d->messageQueue->postToServer();
+}
+
+/// Returns a QString containing the date given using the Mixpanel format
+///
+/// \param dateTime The QDateTime object to convert
+///
+
+QString Mixpanel::convertToMixpanelDateFormat(const QDateTime& dateTime)
+{
+    return dateTime.toString("yyyy-MM-ddThh:mm:ss");
 }
 
 /// Returns the reference to MixpanelPeople
