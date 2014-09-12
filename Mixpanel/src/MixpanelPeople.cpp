@@ -110,27 +110,43 @@ void MixpanelPeople::set(const QVariantMap& properties)
 /// The given name and value will be assigned to the user in Mixpanel People Analytics,
 /// possibly overwriting an existing property with the same name.
 ///
-/// \param property The name of the Mixpanel property. This must be a String, for example "Zip Code"
-/// \param value The value of the Mixpanel property. For "Zip Code", this value might be the String "90210"
+/// \param propertyName The name of the Mixpanel property. This must be a QString, for example "Zip Code"
+/// \param value The value of the Mixpanel property. For "Zip Code", this value might be the QString "90210"
 ///
 
-void MixpanelPeople::set(const QString& property, const QVariant& object)
+void MixpanelPeople::set(const QString& propertyName, const QVariant& value)
 {
     QVariantMap dataMap;
-    dataMap.insert(property, object);
+    dataMap.insert(propertyName, value);
 
     set(dataMap);
 }
+
+///
+/// Works just like set, except it will not overwrite existing property values. This is useful for properties like "First login date".
+///
+/// \param properties a QVariantMap containing the collection of properties you wish to apply
+///      to the identified user. Each key in the JSONObject will be associated with
+///      a property name, and the value of that key will be assigned to the property.
+///
 
 void MixpanelPeople::setOnce(const QVariantMap& properties)
 {
     engageProfileMessage("$set_once", properties);
 }
 
-void MixpanelPeople::setOnce(const QString& propertyName, const QVariant& propertyValue)
+
+///
+/// Works just like set, except it will not overwrite existing property values. This is useful for properties like "First login date".
+///
+/// \param propertyName The name of the Mixpanel property. This must be a QString, for example "Zip Code"
+/// \param value The value of the Mixpanel property. For "Zip Code", this value might be the QString "90210"
+///
+
+void MixpanelPeople::setOnce(const QString& propertyName, const QVariant& value)
 {
     QVariantMap dataMap;
-    dataMap.insert(propertyName, propertyValue);
+    dataMap.insert(propertyName, value);
 
     setOnce(dataMap);
 }
@@ -140,16 +156,16 @@ void MixpanelPeople::setOnce(const QString& propertyName, const QVariant& proper
 /// have the associated property, the amount will be added to zero. To reduce a property,
 /// provide a negative number for the value.
 ///
-/// \param property name of the People Analytics property that should have its value changed
+/// \param propertyName name of the People Analytics property that should have its value changed
 /// \param value the amount to be added to the current value of the named property
 ///
 
-void MixpanelPeople::increment(const QString& property, double value)
+void MixpanelPeople::increment(const QString& propertyName, double value)
 {
     QVariantMap properties;
-    properties.insert(property, QVariant(value));
+    properties.insert(propertyName, QVariant(value));
 
-    if (property.isEmpty())
+    if (propertyName.isEmpty())
     {
         qWarning() << "Invalid increment property name -> Analytic message not recorded";
         emit engageProfileError(InvalidIncrement, "$add", properties);

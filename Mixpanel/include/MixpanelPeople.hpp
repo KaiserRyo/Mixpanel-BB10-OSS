@@ -53,13 +53,13 @@ public:
     void setDistinctId(const QString& distinctId);
 
     void set(const QVariantMap& properties);
-    void set(const QString& property, const QVariant& object);
+    void set(const QString& propertyName, const QVariant& value);
 
     void setOnce(const QVariantMap& properties);
-    void setOnce(const QString& property, const QVariant& object);
+    void setOnce(const QString& propertyName, const QVariant& value);
 
 
-    void increment(const QString& property, double value);
+    void increment(const QString& propertyName, double value);
 
     QByteArray stdPeopleMessage(const QString& action, const QVariantMap& properties);
 
