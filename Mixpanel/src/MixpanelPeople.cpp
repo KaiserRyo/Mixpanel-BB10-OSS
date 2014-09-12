@@ -175,6 +175,13 @@ void MixpanelPeople::increment(const QString& propertyName, double value)
     engageProfileMessage("$add", properties);
 }
 
+/// Records a delete user mixpanel analytics message
+
+void MixpanelPeople::deleteUser()
+{
+    engageProfileMessage("$delete", QVariantMap());
+}
+
 /// Prepares the engage analytic message to be recorded
 ///
 /// \note It checks whether there is any error. If the message is correct
