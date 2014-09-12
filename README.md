@@ -127,10 +127,9 @@ You can do exaclty the same thing in your C++ code. You just need to create a QV
     properties.insert("$email", "leomessi@gmail.com");
     m_mixpanel->setProfileProperties(properties);
 
-###Track a event
+###Track an event
 
-Tracking events is same simple as setting profile updates. In QML you just need to create the JS var and the name of your event. Then it is just to call trackEvent. Lets see how an event is hooked to a button:
-Track event in a QML Button:
+Tracking events is as simple as setting profile updates. In QML you just need the name of your event and a JS var that contains the properties. Lets see how an event is hooked to a button:
 
 	Button {
 		text: "Track Level complete"
