@@ -92,6 +92,8 @@ public slots:
     void setOnceProfileProperties(const QVariantMap& properties);
     void setOnceProfileProperty(const QString& propertyName, const QVariant& value);
 
+    void setCustomAction(const QVariantMap& actionProperties);
+
     void incrementProfileProperty(const QString& property, const double& value);
 
     void deleteUser();

@@ -40,7 +40,8 @@ public:
        InvalidToken = 0,   ///< The token is invalid
        InvalidIdentity,    ///< The profile update contained an invalid identity
        InvalidIncrement,   ///< The increment contains invalid data
-       InvalidJson         ///< JSON conversation failed
+       InvalidJson,        ///< JSON conversation failed
+       IvalidAction        ///< The action is invalid
     };
 
     MixpanelPeople(QObject* parent);
@@ -57,6 +58,8 @@ public:
 
     void setOnce(const QVariantMap& properties);
     void setOnce(const QString& propertyName, const QVariant& value);
+
+    void setCustomAction(const QVariantMap& actionProperies);
 
     void increment(const QString& propertyName, double value);
 

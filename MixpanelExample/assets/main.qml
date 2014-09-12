@@ -40,7 +40,7 @@ Page {
                 horizontalAlignment: HorizontalAlignment.Center
 
             }
-            
+
             Button {
                 text: "Update super properties"
                 onClicked: {
@@ -53,15 +53,13 @@ Page {
             Button {
                 text: "Track Level complete"
                 onClicked: {
-                    var eventPorperties = {
-                        "Level Number" : 9,
-                        "Coins" : 1250
+                    var eventProperties = {
+                        "Level Number": 9,
+                        "Coins": 1250
                     }
-                    mixpanel.trackEvent("Level Complete", eventPorperties);                    
+                    mixpanel.trackEvent("Level Complete", eventProperties);
                 }
             }
-            
-            
 
             Button {
                 text: "Increment Coins by 10"
@@ -72,8 +70,6 @@ Page {
                 horizontalAlignment: HorizontalAlignment.Center
             }
 
-
-
             Button {
                 text: "Flush mixpanel messages"
                 onClicked: {
@@ -82,7 +78,7 @@ Page {
                 verticalAlignment: VerticalAlignment.Center
                 horizontalAlignment: HorizontalAlignment.Center
             }
-            
+
             Button {
                 text: "Force engage profile error"
                 onClicked: {
@@ -90,9 +86,9 @@ Page {
                 }
                 verticalAlignment: VerticalAlignment.Center
                 horizontalAlignment: HorizontalAlignment.Center
-            
+
             }
-            
+
             Button {
                 text: "Force track event error"
                 onClicked: {
@@ -100,9 +96,9 @@ Page {
                 }
                 verticalAlignment: VerticalAlignment.Center
                 horizontalAlignment: HorizontalAlignment.Center
-            
+
             }
-            
+
             Button {
                 text: "Delete profile"
                 onClicked: {
@@ -110,7 +106,38 @@ Page {
                 }
                 verticalAlignment: VerticalAlignment.Center
                 horizontalAlignment: HorizontalAlignment.Center
-            
+
+            }
+
+            Button {
+                text: "Set player properties"
+                onClicked: {
+                    
+                    var properties = {
+                        "Nickname": "Messiah",
+                        "Position": [ "CF", "RF"],
+                        "Number" : 10,
+                        "Nationality" : "Argentina",
+                        "Club" : "FC Barcelona"
+                    }
+                    mixpanel.setProfileProperties(properties)
+                }
+                verticalAlignment: VerticalAlignment.Center
+                horizontalAlignment: HorizontalAlignment.Center
+            }
+
+
+            Button {
+                text: "Unset player properties"
+                onClicked: {
+
+                    var unsetProperties = {
+                        "$unset": [ "Number", "Nickname", "Nationality", "Position", "Club"]
+                    }
+                    mixpanel.setCustomAction(unsetProperties)
+                }
+                verticalAlignment: VerticalAlignment.Center
+                horizontalAlignment: HorizontalAlignment.Center
             }
 
         }
