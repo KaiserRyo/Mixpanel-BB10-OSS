@@ -87,7 +87,10 @@ public slots:
     void identify(const QString& distinctId);
 
     void setProfileProperties(const QVariantMap& properties);
-    void setProfileProperty(const QString& property, QVariant object);
+    void setProfileProperty(const QString& property, const QVariant& object);
+
+    void setOnceProfileProperties(const QVariantMap& properties);
+    void setOnceProfileProperty(const QString& propertyName, const QVariant& propertyValue);
 
     void incrementProfileProperty(const QString& property, const double& value);
 

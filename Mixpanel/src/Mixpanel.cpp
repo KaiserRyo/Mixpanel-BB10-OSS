@@ -125,9 +125,19 @@ void Mixpanel::setProfileProperties(const QVariantMap& properties)
 /// \param object property as a QVariant
 ///
 
-void Mixpanel::setProfileProperty(const QString& property, QVariant object)
+void Mixpanel::setProfileProperty(const QString& property, const QVariant& object)
 {
     d->mixpanelPeople->set(property, object);
+}
+
+void Mixpanel::setOnceProfileProperties(const QVariantMap& properties)
+{
+    d->mixpanelPeople->setOnce(properties);
+}
+
+void Mixpanel::setOnceProfileProperty(const QString& propertyName, const QVariant& propertyValue)
+{
+    d->mixpanelPeople->setOnce(propertyName, propertyValue);
 }
 
 /// Registers super properites in the persistent identity

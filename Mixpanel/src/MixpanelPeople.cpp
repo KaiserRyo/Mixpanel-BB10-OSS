@@ -99,7 +99,6 @@ QString MixpanelPeople::distinctId() const
 
 void MixpanelPeople::set(const QVariantMap& properties)
 {
-
     QVariantMap updatedProperties(properties);
     updatedProperties.unite(d->persistentIdentity.referrerProperties());
 
@@ -115,12 +114,25 @@ void MixpanelPeople::set(const QVariantMap& properties)
 /// \param value The value of the Mixpanel property. For "Zip Code", this value might be the String "90210"
 ///
 
-void MixpanelPeople::set(const QString& property, QVariant object)
+void MixpanelPeople::set(const QString& property, const QVariant& object)
 {
     QVariantMap dataMap;
     dataMap.insert(property, object);
 
     set(dataMap);
+}
+
+void MixpanelPeople::setOnce(const QVariantMap& properties)
+{
+    engageProfileMessage("$set_once", properties);
+}
+
+void MixpanelPeople::setOnce(const QString& propertyName, const QVariant& propertyValue)
+{
+    QVariantMap dataMap;
+    dataMap.insert(propertyName, propertyValue);
+
+    setOnce(dataMap);
 }
 
 ///

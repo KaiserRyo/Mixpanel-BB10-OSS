@@ -53,7 +53,11 @@ public:
     void setDistinctId(const QString& distinctId);
 
     void set(const QVariantMap& properties);
-    void set(const QString& property, QVariant object);
+    void set(const QString& property, const QVariant& object);
+
+    void setOnce(const QVariantMap& properties);
+    void setOnce(const QString& property, const QVariant& object);
+
 
     void increment(const QString& property, double value);
 
