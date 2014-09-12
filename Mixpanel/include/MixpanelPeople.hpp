@@ -58,8 +58,9 @@ public:
     void setOnce(const QVariantMap& properties);
     void setOnce(const QString& propertyName, const QVariant& value);
 
-
     void increment(const QString& propertyName, double value);
+
+    void deleteProfile();
 
     QByteArray stdPeopleMessage(const QString& action, const QVariantMap& properties);
 
