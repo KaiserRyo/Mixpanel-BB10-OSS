@@ -102,6 +102,16 @@ Page {
                 horizontalAlignment: HorizontalAlignment.Center
             
             }
+            
+            Button {
+                text: "Delete profile"
+                onClicked: {
+                    mixpanel.deleteProfile();
+                }
+                verticalAlignment: VerticalAlignment.Center
+                horizontalAlignment: HorizontalAlignment.Center
+            
+            }
 
         }
     }
