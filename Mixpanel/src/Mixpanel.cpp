@@ -210,9 +210,9 @@ void Mixpanel::incrementProfileProperty(const QString& property, const double& v
     d->mixpanelPeople->increment(property, value);
 }
 
-void Mixpanel::deleteProfile()
+void Mixpanel::deleteUser()
 {
-    d->mixpanelPeople->deleteProfile();
+    d->mixpanelPeople->deleteUser();
 }
 
 /// Flushes all messages in the message queue to the Mixpanel server

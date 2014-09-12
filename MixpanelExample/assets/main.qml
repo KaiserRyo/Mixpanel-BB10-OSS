@@ -106,7 +106,7 @@ Page {
             Button {
                 text: "Delete profile"
                 onClicked: {
-                    mixpanel.deleteProfile();
+                    mixpanel.deleteUser();
                 }
                 verticalAlignment: VerticalAlignment.Center
                 horizontalAlignment: HorizontalAlignment.Center

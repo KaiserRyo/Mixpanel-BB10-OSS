@@ -94,7 +94,7 @@ public slots:
 
     void incrementProfileProperty(const QString& property, const double& value);
 
-    void deleteProfile();
+    void deleteUser();
 
     void registerSuperProperties(const QVariantMap& superProperties);
     void registerSuperPropertiesOnce(const QVariantMap& superProperties);

@@ -60,7 +60,7 @@ public:
 
     void increment(const QString& propertyName, double value);
 
-    void deleteProfile();
+    void deleteUser();
 
     QByteArray stdPeopleMessage(const QString& action, const QVariantMap& properties);
 
