@@ -98,6 +98,10 @@ ApplicationUI::ApplicationUI() :
     // Set created root object as the application scene
     Application::instance()->setScene(root);
 
+
+    /// Set once
+    m_mixpanel->setOnceProfileProperty("First launched", QVariant(Mixpanel::convertToMixpanelDateFormat(QDateTime::currentDateTimeUtc())));
+
 }
 
 void ApplicationUI::sendProfileUpdate()
