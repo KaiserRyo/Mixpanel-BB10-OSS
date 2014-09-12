@@ -153,6 +153,25 @@ Tracking events is also available to use in your C++ code.
     m_mixpanel->trackEvent("Level Complete", eventProperties);
 
 
+###Use of non common update operations:
+
+In order to use other update operation as $append, $union or $unset, you can use setCustomAction. Lets see how to unset some profile properties in QML:
+
+
+	Button {
+                text: "Unset player properties"
+                onClicked: {
+
+                    var unsetProperties = {
+                        "$unset": [ "Number", "Nickname", "Nationality", "Position", "Club"]
+                    }
+                    mixpanel.setCustomAction(unsetProperties)
+                }
+                verticalAlignment: VerticalAlignment.Center
+                horizontalAlignment: HorizontalAlignment.Center
+            }
+
+
 Documentation
 -------------
 Documentation is provided by doxygen, use doxygen Doxyfile to generate the html documentation under /doc directory.
