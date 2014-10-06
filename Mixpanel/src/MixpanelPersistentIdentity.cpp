@@ -240,19 +240,29 @@ void MixpanelPersistentIdentity::readIdentities()
     bb::ApplicationInfo appInfo;
     bb::platform::PlatformInfo platformInfo;
 
+    d->referrerProperties.insert("mp_lib", "blackberry");
     d->referrerProperties.insert("$os", "BB10");
-    d->referrerProperties.insert("BB10 OS version", platformInfo.osVersion());
-    d->referrerProperties.insert("App version", appInfo.version());
-    d->referrerProperties.insert("Device name", hardwareInfo.deviceName());
-    d->referrerProperties.insert("Model", hardwareInfo.modelName());
-    d->referrerProperties.insert("PIN", hardwareInfo.pin());
+
+    if (!platformInfo.osVersion().isEmpty())
+        d->referrerProperties.insert("$os_version", platformInfo.osVersion());
+
+    if (!appInfo.version().isEmpty())
+        d->referrerProperties.insert("$app_version", appInfo.version());
+
+    if (!hardwareInfo.deviceName().isEmpty())
+        d->referrerProperties.insert("Device name", hardwareInfo.deviceName());
+
+    if (!hardwareInfo.modelName().isEmpty())
+        d->referrerProperties.insert("$model", hardwareInfo.modelName());
+
+    if (!hardwareInfo.pin().isEmpty())
+        d->referrerProperties.insert("PIN", hardwareInfo.pin());
 
     if (d->eventDistinctId.isEmpty())
         setEventDistinctId(hardwareInfo.pin());
 
     if (d->peopleDistinctId.isEmpty())
         setPeopleDisctinctId(hardwareInfo.pin());
-
 }
 
 
