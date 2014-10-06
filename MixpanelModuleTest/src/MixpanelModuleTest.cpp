@@ -27,19 +27,18 @@ void MixpanelModuleTest::testPersistentProperties()
     bb::ApplicationInfo appInfo;
     bb::platform::PlatformInfo platformInfo;
 
+    persistentIdentity.setToken("36ada5b10da39a1347559321baf13063");
     persistentIdentity.readIdentities();
 
     QVariantMap properties = persistentIdentity.referrerProperties();
+    QCOMPARE(properties["mp_lib"].toString(), QString("blackberry"));
     QCOMPARE(properties["$os"].toString(), QString("BB10"));
-    QCOMPARE(properties["App version"].toString(), appInfo.version());
-    QCOMPARE(properties["BB10 OS version"].toString(), platformInfo.osVersion());
+    QCOMPARE(properties["$app_version"].toString(), appInfo.version());
+    QCOMPARE(properties["$os_version"].toString(), platformInfo.osVersion());
     QCOMPARE(properties["Device name"].toString(), hardwareInfo.deviceName());
-    QCOMPARE(properties["Model"].toString(), hardwareInfo.modelName());
+    QCOMPARE(properties["$model"].toString(), hardwareInfo.modelName());
     QCOMPARE(properties["PIN"].toString(), hardwareInfo.pin());
-
-    persistentIdentity.setToken("36ada5b10da39a1347559321baf13063");
     QCOMPARE(QString("36ada5b10da39a1347559321baf13063"), persistentIdentity.token());
-
 }
 
 
@@ -97,7 +96,6 @@ void MixpanelModuleTest::testRegisterSuperPropertiesOnce()
     actualSuperProperties = persistentIdentity.eventSuperProperties();
 
     QCOMPARE(actualSuperProperties["First login date"].toString(), QString("2013-04-01T13:20:00"));
-
 }
 
 void MixpanelModuleTest::testLoadSuperProperties()
@@ -182,7 +180,6 @@ void MixpanelModuleTest::testTrackSingleEvent()
     QCOMPARE(jsonData.value("event").toString(), QString("Signed Up"));
     QCOMPARE(jsonData["properties"].toMap().value("distinct_id").toString(), QString("13793"));
     QCOMPARE(jsonData["properties"].toMap().value("token").toString(), QString("36ada5b10da39a1347559321baf13063"));
-
 }
 
 void MixpanelModuleTest::testTrackEventProperties()
@@ -202,7 +199,6 @@ void MixpanelModuleTest::testTrackEventProperties()
     QCOMPARE(jsonData["properties"].toMap().value("token").toString(), QString("36ada5b10da39a1347559321baf13063"));
     QCOMPARE(jsonData["properties"].toMap().value("ip").toString(), QString("203.0.113.9"));
     QCOMPARE(jsonData["properties"].toMap().value("Level Number").toInt(), 9);
-
 }
 
 void MixpanelModuleTest::testMixpanelConfiguration()
